@@ -10,15 +10,21 @@ class DownloadCaption(Step):
         # download the package by:  pip install pytube
         start = time.time()
         for url in data:
-            source = YouTube(url)
+            print('downloading caption for, url')
+            if utils.caption_file_exist(url):
+                print('find existing caption file')
+                continue
 
-            en_caption = source.captions.get_by_language_code('en')
+            try:
+                source = YouTube(url)
+                en_caption = source.captions.get_by_language_code('en')
+                en_caption_convert_to_srt = (en_caption.generate_srt_captions())
+            except (KeyError, AttributeError):
+                print('KeyError when downloading caption for, url')
+                continue
 
-            en_caption_convert_to_srt = (en_caption.generate_srt_captions())
-
-            print(en_caption_convert_to_srt)
             # save the caption to a file named Output.txt
-            text_file = open(utils.get_caption_path(url), "w", encoding='utf-8')
+            text_file = open(utils.get_caption_filepath(url), "w", encoding='utf-8')
             text_file.write(en_caption_convert_to_srt)
             text_file.close()
 

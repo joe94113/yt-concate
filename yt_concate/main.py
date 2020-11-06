@@ -23,7 +23,7 @@ def main():
 
     utils = Utils()
     p = Pipeline(steps)
-    p.run(inputs, utils)
+    p.run(inputs, Utils())
 
 
 if __name__ == "__main__":

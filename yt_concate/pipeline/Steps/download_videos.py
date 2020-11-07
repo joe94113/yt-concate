@@ -1,3 +1,5 @@
+import pytube
+
 from .step import Step
 
 from pytube import YouTube
@@ -16,8 +18,10 @@ class DownloadVideos(Step):
             if utils.video_file_exists(yt):
                 print(f'found existing video file for {url}, skipping')
                 continue
-            print('downloading', url)
-
-            YouTube(url).streams.first().download(output_path=VIDEOS_DIR, filename=yt.id)
+            try:
+                print('downloading', url)
+                YouTube(url).streams.first().download(output_path=VIDEOS_DIR, filename=yt.id)
+            except pytube.exceptions.RegexMatchError:
+                print('downloading error', url)
 
         return data

@@ -1,5 +1,8 @@
+from yt_concate.pipeline.Steps.download_videos import DownloadVideos
+from yt_concate.pipeline.Steps.search import Search
 from yt_concate.pipeline.Steps.get_video_list import GetVideoList
 from yt_concate.pipeline.Steps.download_captions import DownloadCaption
+from yt_concate.pipeline.Steps.initialize_yt import InitializeYT
 from yt_concate.pipeline.Steps.preflight import Preflight
 from yt_concate.pipeline.Steps.postflight import Postflight
 from yt_concate.pipeline.Steps.read_caption import ReadCaption
@@ -12,14 +15,18 @@ CHANNEL_ID = "UCKSVUHI9rbbkXhvAXK-2uxA"
 
 def main():
     inputs = {
-        'channel_id': CHANNEL_ID
+        'channel_id': CHANNEL_ID,
+        'search_word': 'incredible',
     }
 
     steps = [
         Preflight(),
         GetVideoList(),
+        InitializeYT(),
         DownloadCaption(),
         ReadCaption(),
+        Search(),
+        DownloadVideos(),
         Postflight(),
     ]
 

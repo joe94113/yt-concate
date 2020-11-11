@@ -45,7 +45,7 @@ class DownloadVideos(Step):
         #         print('downloading error', url)
 
         end = time.time()
-        logging.debug('總共費時', end-start)
+        logging.debug(f'總共費時{end-start}')
 
         return data
 

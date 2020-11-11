@@ -37,7 +37,6 @@ def main():
         'search_word': "incredible",
         'limit': 20,
         'cleanup': False,
-        'fast': True,
     }
 
     try:
